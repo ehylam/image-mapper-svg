@@ -57,7 +57,7 @@ export default class ImageMapper {
       d3.select(this.svg).append('circle')
         .attr('cx', x)
         .attr('cy', y)
-        .attr('r', 4 / this.scale)
+        .attr('r', 6 / this.scale)
         .style('fill', '#1f7a1a');
 
       const circle = d3.select(this.svg).select('circle:last-child');

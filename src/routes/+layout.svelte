@@ -1,6 +1,9 @@
 <script>
 	import Header from './Header.svelte';
 	import './styles.css';
+
+	// get current year
+	const year = new Date().getFullYear();
 </script>
 
 <div class="app">
@@ -10,7 +13,7 @@
 		<slot />
 	</main>
 
-	<footer />
+	<footer><p>Built with Sveltekit ⚡ - Copyright © <a href="https://ericlam.dev/" target="_blank">Eric Lam</a> {year}</p></footer>
 </div>
 
 <style>
@@ -37,8 +40,8 @@
 		padding: 12px;
 	}
 
-	footer a {
-		font-weight: bold;
+	footer p {
+		font-size: 10px;
 	}
 
 	@media (min-width: 480px) {

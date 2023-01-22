@@ -21,14 +21,12 @@
 			const points = imageMapper.getPoints();
 			const code = document.querySelector('.mapper-points__points code');
 			code.textContent = points;
-			console.log(code);
 		}
 	}
 </script>
 
 <section class="mapper-section">
 	<input type="file" bind:files />
-
 	<div class="mapper-container" bind:this={container}>
 		<div class="mapper" bind:this={mapper}>
 			{#if files && files[0]}
@@ -41,25 +39,22 @@
 		</div>
 	</div>
 
+	{#if imageMapper}
 	<div class="mapper-points">
 		<div class="mapper-points__points">
 			<p>Points:</p>
 			<pre>
-			<code />
-		</pre>
+				<code />
+			</pre>
 		</div>
 	</div>
+	{/if}
 </section>
 
 <style>
 	img {
 		width: 100%;
 		object-fit: contain;
-	}
-
-	.mapper-section {
-		max-width: 70%;
-		margin: 0 auto;
 	}
 
 	.mapper-container {
@@ -79,6 +74,14 @@
 		height: 100%;
 	}
 
+	input {
+		margin: 40px 0;
+	}
+
+	.mapper-points {
+		margin: min(10vw, 20px) 0;
+	}
+
 	.mapper-points p {
 		margin-bottom: 5px;
 	}
@@ -86,5 +89,7 @@
 	.mapper-points pre {
 		display: flex;
 		margin-top: 0;
+		background-color: #222;
+		color: #ebebeb;
 	}
 </style>
