@@ -62,8 +62,10 @@
 		border-bottom: 1px solid #bfbfbf;
 	}
 
-	.group div {
-		flex-basis: calc(50% - max(1.5vw, 15px) / 2)
+	@media (min-width: 1024px) {
+		.group div {
+			flex-basis: calc(50% - max(1.5vw, 15px) / 2)
+		}
 	}
 
 	.group span {
