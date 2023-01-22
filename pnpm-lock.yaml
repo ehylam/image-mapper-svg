@@ -14,6 +14,7 @@ specifiers:
   svelte: ^3.54.0
   svelte-check: ^3.0.1
   svelte-preprocess: ^5.0.1
+  svelte-prism: ^1.1.6
   tslib: ^2.4.1
   typescript: ^4.9.3
   vite: ^4.0.0
@@ -21,6 +22,7 @@ specifiers:
 dependencies:
   d3: 7.8.2
   sass: 1.57.1
+  svelte-prism: 1.1.6
 
 devDependencies:
   '@fontsource/fira-mono': 4.5.10
@@ -1036,6 +1038,15 @@ packages:
     hasBin: true
     dev: true
 
+  /prism-svelte/0.4.7:
+    resolution: {integrity: sha512-yABh19CYbM24V7aS7TuPYRNMqthxwbvx6FF/Rw920YbyBWO3tnyPIqRMgHuSVsLmuHkkBS1Akyof463FVdkeDQ==}
+    dev: false
+
+  /prismjs/1.29.0:
+    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
+    engines: {node: '>=6'}
+    dev: false
+
   /queue-microtask/1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
@@ -1251,6 +1262,13 @@ packages:
       svelte: 3.55.1
       typescript: 4.9.4
     dev: true
+
+  /svelte-prism/1.1.6:
+    resolution: {integrity: sha512-FEVBqD1wcSKYwRpgaMGRfEIQPquKMwo+vl91lnFHhQCtTivxgkCS6ZWNOyvZGRsNbWk50fYZOWOp3xXIBWNeSw==}
+    dependencies:
+      prism-svelte: 0.4.7
+      prismjs: 1.29.0
+    dev: false
 
   /svelte/3.55.1:
     resolution: {integrity: sha512-S+87/P0Ve67HxKkEV23iCdAh/SX1xiSfjF1HOglno/YTbSTW7RniICMCofWGdJJbdjw3S+0PfFb1JtGfTXE0oQ==}

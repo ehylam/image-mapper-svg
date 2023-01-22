@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Prism from 'svelte-prism';
 	import ImageMapper from '../lib/utils/ImageMapper';
 
 	let container: HTMLDivElement,
@@ -7,6 +8,8 @@
 		imageCanvas: HTMLImageElement;
 	let files: any;
 	let imageMapper: any;
+	let points: String = '';
+	let demoCode: String = '';
 
 	$: imgSrc = files ? URL.createObjectURL(files[0]) : '';
 
@@ -18,9 +21,17 @@
 
 	function onSVGClick() {
 		if (imageMapper) {
-			const points = imageMapper.getPoints();
+			points = imageMapper.getPoints();
 			const code = document.querySelector('.mapper-points__points code');
 			code.textContent = points;
+
+			demoCode = `<div style="position: relative;">
+  // Make sure the intrinsic width and height of the image is the same as the image that is used to map the points.
+  <img src="" alt="" style="width: 100%;" />
+  <svg viewBox="0 0 ${imageMapper.imageSize.nWidth} ${imageMapper.imageSize.nHeight}" style="position: absolute; top: 0; left: 0;">
+   <polygon fill="#1b0a0a74" points={${points}} />
+  </svg>
+</div>`
 		}
 	}
 </script>
@@ -39,7 +50,7 @@
 		</div>
 	</div>
 
-	{#if imageMapper}
+	{#if points.length}
 	<div class="mapper-points">
 		<div class="mapper-points__points">
 			<p>Points:</p>
@@ -49,12 +60,29 @@
 		</div>
 	</div>
 	{/if}
+
+	{#if demoCode.length}
+	<div class="mapper-example">
+		<p>Example: </p>
+		<Prism language="html" source={demoCode}/>
+	</div>
+	{/if}
+
+
 </section>
 
 <style>
 	img {
 		width: 100%;
 		object-fit: contain;
+	}
+
+	input {
+		margin: 40px 0;
+	}
+
+	p {
+		margin-bottom: 5px;
 	}
 
 	.mapper-container {
@@ -74,16 +102,8 @@
 		height: 100%;
 	}
 
-	input {
-		margin: 40px 0;
-	}
-
 	.mapper-points {
 		margin: min(10vw, 20px) 0;
-	}
-
-	.mapper-points p {
-		margin-bottom: 5px;
 	}
 
 	.mapper-points pre {
