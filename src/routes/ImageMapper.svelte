@@ -1,102 +1,90 @@
 <script lang="ts">
-	import { spring } from 'svelte/motion';
+	import ImageMapper from '../lib/utils/ImageMapper';
 
-	let count = 0;
+	let container: HTMLDivElement,
+		svg: HTMLElement,
+		mapper: HTMLElement,
+		imageCanvas: HTMLImageElement;
+	let files: any;
+	let imageMapper: any;
 
-	const displayed_count = spring();
-	$: displayed_count.set(count);
-	$: offset = modulo($displayed_count, 1);
+	$: imgSrc = files ? URL.createObjectURL(files[0]) : '';
 
-	function modulo(n: number, m: number) {
-		// handle negative numbers
-		return ((n % m) + m) % m;
+	$: if (files && imageCanvas) {
+		imageCanvas.onload = () => {
+			imageMapper = new ImageMapper(container, mapper, svg, imageCanvas, {});
+		};
+	}
+
+	function onSVGClick() {
+		if (imageMapper) {
+			const points = imageMapper.getPoints();
+			const code = document.querySelector('.mapper-points__points code');
+			code.textContent = points;
+			console.log(code);
+		}
 	}
 </script>
 
-<div class="counter">
-	<button on:click={() => (count -= 1)} aria-label="Decrease the counter by one">
-		<svg aria-hidden="true" viewBox="0 0 1 1">
-			<path d="M0,0.5 L1,0.5" />
-		</svg>
-	</button>
+<section class="mapper-section">
+	<input type="file" bind:files />
 
-	<div class="counter-viewport">
-		<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
-			<strong class="hidden" aria-hidden="true">{Math.floor($displayed_count + 1)}</strong>
-			<strong>{Math.floor($displayed_count)}</strong>
+	<div class="mapper-container" bind:this={container}>
+		<div class="mapper" bind:this={mapper}>
+			{#if files && files[0]}
+				<img bind:this={imageCanvas} src={imgSrc} />
+			{/if}
+
+			<svg class="map" bind:this={svg} on:click={onSVGClick}>
+				<polygon fill="#1b0a0a74" />
+			</svg>
 		</div>
 	</div>
 
-	<button on:click={() => (count += 1)} aria-label="Increase the counter by one">
-		<svg aria-hidden="true" viewBox="0 0 1 1">
-			<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" />
-		</svg>
-	</button>
-</div>
+	<div class="mapper-points">
+		<div class="mapper-points__points">
+			<p>Points:</p>
+			<pre>
+			<code />
+		</pre>
+		</div>
+	</div>
+</section>
 
 <style>
-	.counter {
-		display: flex;
-		border-top: 1px solid rgba(0, 0, 0, 0.1);
-		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-		margin: 1rem 0;
+	img {
+		width: 100%;
+		object-fit: contain;
 	}
 
-	.counter button {
-		width: 2em;
-		padding: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border: 0;
-		background-color: transparent;
-		touch-action: manipulation;
-		font-size: 2rem;
+	.mapper-section {
+		max-width: 70%;
+		margin: 0 auto;
 	}
 
-	.counter button:hover {
-		background-color: var(--color-bg-1);
+	.mapper-container {
+		width: 100%;
 	}
-
-	svg {
-		width: 25%;
-		height: 25%;
-	}
-
-	path {
-		vector-effect: non-scaling-stroke;
-		stroke-width: 2px;
-		stroke: #444;
-	}
-
-	.counter-viewport {
-		width: 8em;
-		height: 4em;
-		overflow: hidden;
-		text-align: center;
+	.mapper {
 		position: relative;
+		width: 100%;
+		transform-origin: top left;
 	}
 
-	.counter-viewport strong {
+	.mapper svg {
 		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.mapper-points p {
+		margin-bottom: 5px;
+	}
+
+	.mapper-points pre {
 		display: flex;
-		width: 100%;
-		height: 100%;
-		font-weight: 400;
-		color: var(--color-theme-1);
-		font-size: 4rem;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.counter-digits {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-	}
-
-	.hidden {
-		top: -100%;
-		user-select: none;
+		margin-top: 0;
 	}
 </style>
