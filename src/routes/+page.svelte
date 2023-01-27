@@ -43,7 +43,7 @@
 				<li>Allow for more than 1 polygon</li>
 				<li>Update polygon points as you drag, not on mouse up</li>
 				<li>Local storage?</li>
-				<li>Keybored controls - Undo, redo</li>
+				<li>Keyboard controls - Undo, redo</li>
 			</ul>
 		</div>
 	</div>

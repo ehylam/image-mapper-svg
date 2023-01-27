@@ -1,6 +1,9 @@
 <script>
 	import Header from './Header.svelte';
+	import { inject } from '@vercel/analytics';
 	import './styles.css';
+
+	inject();
 
 	// get current year
 	const year = new Date().getFullYear();
@@ -13,7 +16,14 @@
 		<slot />
 	</main>
 
-	<footer><p>Built with Sveltekit ⚡ - Copyright © <a href="https://ericlam.dev/" target="_blank">Eric Lam</a> {year}</p></footer>
+	<footer>
+		<p>
+			Built with Sveltekit ⚡ - Copyright © <a href="https://ericlam.dev/" target="_blank"
+				>Eric Lam</a
+			>
+			{year}
+		</p>
+	</footer>
 </div>
 
 <style>
