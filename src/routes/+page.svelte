@@ -24,8 +24,14 @@
 		<div class="guide">
 			<h2>Installation Guide</h2>
 			<ul>
-				<li>Ensure that the intrinsic/natural width and height of the image is the same as the image that will be used in your website.</li>
-				<li>Also make sure that the width and the height of the SVG's <code>viewBox</code> is the same as the intrinsic/natural width and height of the image</li>
+				<li>
+					Ensure that the intrinsic/natural width and height of the image is the same as the image
+					that will be used in your website.
+				</li>
+				<li>
+					Also make sure that the width and the height of the SVG's <code>viewBox</code> is the same
+					as the intrinsic/natural width and height of the image
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -43,7 +49,11 @@
 	</div>
 
 	<div class="group">
-		<span>Disclaimer - The image file is read by JavaScript on the client-side and is not sent to any external servers. Instead, the image file is stored temporarily in your browser's memory or on the device's file system.<span>
+		<span
+			>Disclaimer - The image file is read by JavaScript on the client-side and is not sent to any
+			external servers. Instead, the image file is stored temporarily in your browser's memory or on
+			the device's file system.<span /></span
+		>
 	</div>
 </section>
 
@@ -64,7 +74,7 @@
 
 	@media (min-width: 1024px) {
 		.group div {
-			flex-basis: calc(50% - max(1.5vw, 15px) / 2)
+			flex-basis: calc(50% - max(1.5vw, 15px) / 2);
 		}
 	}
 
