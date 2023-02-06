@@ -17,7 +17,7 @@
 			<ul>
 				<li>Click on the uploaded image to add a point</li>
 				<li>Shift clicking on a point (green circle) removes the point</li>
-				<li>Click on a drag a point to update it's position.</li>
+				<li>Click and drag a point to update it's position.</li>
 			</ul>
 		</div>
 
