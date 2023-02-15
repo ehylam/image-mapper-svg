@@ -59,6 +59,7 @@
 		<div class="text-input">
 			<input type="text" bind:value={imageLink} placeholder="Paste image link here" />
 			<!-- <button on:click={loadImageFromLink}>Load image</button> -->
+			<span>WIP - Please refresh when you want to map another image.</span>
 		</div>
 	</div>
 
