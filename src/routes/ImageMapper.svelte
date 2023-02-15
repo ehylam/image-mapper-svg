@@ -10,10 +10,21 @@
 	let imageMapper: any;
 	let points: String = '';
 	let demoCode: String = '';
+	let imageLink: string = '';
 
-	$: imgSrc = files ? URL.createObjectURL(files[0]) : '';
+	// function loadImageFromLink() {
+	// 	if (imageLink) {
+	// 		imageCanvas = new Image();
+	// 		imageCanvas.src = imageLink;
+	// 		imageCanvas.onload = () => {
+	// 			imageMapper = new ImageMapper(container, mapper, svg, imageCanvas, {});
+	// 		};
+	// 	}
+	// }
 
-	$: if (files && imageCanvas) {
+	$: imgSrc = files ? URL.createObjectURL(files[0]) : imageLink;
+
+	$: if ((files && imageCanvas) || (imageLink && imageCanvas)) {
 		imageCanvas.onload = () => {
 			imageMapper = new ImageMapper(container, mapper, svg, imageCanvas, {});
 		};
@@ -23,7 +34,10 @@
 		if (imageMapper) {
 			points = imageMapper.getPoints();
 			const code = document.querySelector('.mapper-points__points code');
-			code.textContent = points;
+
+			if (code) {
+				code.textContent = points.toString();
+			}
 
 			demoCode = `<div style="position: relative;">
   // Make sure the intrinsic width and height of the image is the same as the image that is used to map the points.
@@ -31,16 +45,26 @@
   <svg viewBox="0 0 ${imageMapper.imageSize.nWidth} ${imageMapper.imageSize.nHeight}" style="position: absolute; top: 0; left: 0;">
    <polygon fill="#1b0a0a74" points="${points}" />
   </svg>
-</div>`
+</div>`;
 		}
 	}
 </script>
 
 <section class="mapper-section">
-	<input type="file" bind:files />
+	<div class="mapper-inputs">
+		<div class="file-input">
+			<input type="file" bind:files />
+		</div>
+		<span>or</span>
+		<div class="text-input">
+			<input type="text" bind:value={imageLink} placeholder="Paste image link here" />
+			<!-- <button on:click={loadImageFromLink}>Load image</button> -->
+		</div>
+	</div>
+
 	<div class="mapper-container" bind:this={container}>
 		<div class="mapper" bind:this={mapper}>
-			{#if files && files[0]}
+			{#if (files && files[0]) || imageLink}
 				<img bind:this={imageCanvas} src={imgSrc} />
 			{/if}
 
@@ -51,24 +75,22 @@
 	</div>
 
 	{#if points.length}
-	<div class="mapper-points">
-		<div class="mapper-points__points">
-			<p>Points:</p>
-			<pre>
+		<div class="mapper-points">
+			<div class="mapper-points__points">
+				<p>Points:</p>
+				<pre>
 				<code />
 			</pre>
+			</div>
 		</div>
-	</div>
 	{/if}
 
 	{#if demoCode.length}
-	<div class="mapper-example">
-		<p>Example: </p>
-		<Prism language="html" source={demoCode}/>
-	</div>
+		<div class="mapper-example">
+			<p>Example:</p>
+			<Prism language="html" source={demoCode} />
+		</div>
 	{/if}
-
-
 </section>
 
 <style>
@@ -92,6 +114,12 @@
 		position: relative;
 		width: 100%;
 		transform-origin: top left;
+	}
+
+	.mapper-inputs {
+		display: flex;
+		align-items: flex-start;
+		flex-direction: column;
 	}
 
 	.mapper svg {
