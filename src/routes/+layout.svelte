@@ -1,10 +1,6 @@
 <script>
 	import Header from './Header.svelte';
-	import { inject } from '@vercel/analytics';
 	import './styles.css';
-
-	inject();
-
 	// get current year
 	const year = new Date().getFullYear();
 </script>
