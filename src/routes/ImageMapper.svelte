@@ -40,7 +40,7 @@
 			}
 
 			demoCode = `<div style="position: relative;">
-  // Make sure the intrinsic width and height of the image is the same as the image that is used to map the points.
+  <!-- Make sure the SVG viewBox width and height is the same as the (intrinsic) width and height of the uploaded image -->
   <img src="" alt="" style="width: 100%;" />
   <svg viewBox="0 0 ${imageMapper.imageSize.nWidth} ${imageMapper.imageSize.nHeight}" style="position: absolute; top: 0; left: 0;">
    <polygon fill="#1b0a0a74" points="${points}" />
